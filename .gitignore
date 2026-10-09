@@ -1,0 +1,7 @@
+venv/
+.aws-sam
+aws
+__pycache__/
+*.pyc
+awscliv2.zip
+*.pdf:Zone.Identifier
