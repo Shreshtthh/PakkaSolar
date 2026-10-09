@@ -1,0 +1,267 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: PakkaSolar — AI Solar Quote Auditor (Track 03, Environmental Hacks 2026)
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Environment:
+      Variables:
+        MEDIA_BUCKET: !Ref MediaBucket
+        ALMM_TABLE:   !Ref AlmmTable
+        VENDORS_TABLE: !Ref VendorsTable
+        AUDITS_TABLE: !Ref AuditsTable
+        CONFIG_TABLE: !Ref ConfigTable
+        AUDIT_QUEUE_URL: !Ref AuditQueue
+        BEDROCK_REGION: us-east-1
+        WA_VERIFY_TOKEN: pakkasolar_verify_2026
+        MOCK_MODE: "false"
+
+Parameters:
+  Stage:
+    Type: String
+    Default: prod
+
+Resources:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # API Gateway
+  # ─────────────────────────────────────────────────────────────────────────────
+  PakkaApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Stage
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,Authorization'"
+        AllowOrigin:  "'*'"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Lambda: webhook_handler  (receives image upload + WA webhook)
+  # ─────────────────────────────────────────────────────────────────────────────
+  WebhookHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pakkasolar-webhook
+      CodeUri: webhook_handler/
+      Handler: lambda_function.lambda_handler
+      Timeout: 15
+      MemorySize: 256
+      Policies:
+        - S3WritePolicy:
+            BucketName: !Ref MediaBucket
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt AuditQueue.QueueName
+        - DynamoDBWritePolicy:
+            TableName: !Ref AuditsTable
+      Events:
+        AuditPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PakkaApi
+            Path: /audit
+            Method: POST
+        WhatsAppGet:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PakkaApi
+            Path: /webhook/wa
+            Method: GET
+        WhatsAppPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PakkaApi
+            Path: /webhook/wa
+            Method: POST
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Lambda: status_handler  (poll for audit result)
+  # ─────────────────────────────────────────────────────────────────────────────
+  StatusHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pakkasolar-status
+      CodeUri: status_handler/
+      Handler: lambda_function.lambda_handler
+      Timeout: 5
+      MemorySize: 128
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AuditsTable
+      Events:
+        StatusGet:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PakkaApi
+            Path: /status/{audit_id}
+            Method: GET
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Lambda: audit_worker  (SQS consumer — runs the full audit pipeline)
+  # ─────────────────────────────────────────────────────────────────────────────
+  AuditWorker:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pakkasolar-worker
+      CodeUri: audit_worker/
+      Handler: lambda_function.lambda_handler
+      Timeout: 120
+      MemorySize: 1024
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AuditsTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref AlmmTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref VendorsTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref ConfigTable
+        - S3CrudPolicy:
+            BucketName: !Ref MediaBucket
+        - Statement:
+            - Effect: Allow
+              Action:
+                - polly:SynthesizeSpeech
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+                - bedrock:InvokeModelWithResponseStream
+              Resource: "*"
+      Events:
+        SQSTrigger:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt AuditQueue.Arn
+            BatchSize: 1
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # SQS
+  # ─────────────────────────────────────────────────────────────────────────────
+  AuditQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: pakkasolar-audit-queue
+      VisibilityTimeout: 150        # Must be > Lambda timeout (120s)
+      MessageRetentionPeriod: 3600  # 1 hour
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt AuditDLQ.Arn
+        maxReceiveCount: 2          # Retry once, then DLQ
+
+  AuditDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: pakkasolar-audit-dlq
+      MessageRetentionPeriod: 86400
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # DynamoDB
+  # ─────────────────────────────────────────────────────────────────────────────
+  AlmmTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: pakkasolar-almm-panels
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: brand_normalized
+          AttributeType: S
+        - AttributeName: model_prefix
+          AttributeType: S
+      KeySchema:
+        - AttributeName: brand_normalized
+          KeyType: HASH
+        - AttributeName: model_prefix
+          KeyType: RANGE
+
+  VendorsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: pakkasolar-vendors
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: state_code
+          AttributeType: S
+        - AttributeName: vendor_name_normalized
+          AttributeType: S
+      KeySchema:
+        - AttributeName: state_code
+          KeyType: HASH
+        - AttributeName: vendor_name_normalized
+          KeyType: RANGE
+
+  AuditsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: pakkasolar-audits
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: audit_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: audit_id
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  ConfigTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: pakkasolar-config
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: config_key
+          AttributeType: S
+      KeySchema:
+        - AttributeName: config_key
+          KeyType: HASH
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # S3  (single bucket: uploads/ + verdicts/ + nasa_power/)
+  # ─────────────────────────────────────────────────────────────────────────────
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "pakkasolar-media-${AWS::AccountId}"
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ["*"]
+            AllowedMethods: [GET, PUT, POST]
+            AllowedOrigins: ["*"]
+            MaxAge: 3000
+
+  # Public read for verdicts/* so the audio player can stream the MP3 directly
+  MediaBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MediaBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadVerdicts
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${MediaBucket}/verdicts/*"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Outputs
+# ─────────────────────────────────────────────────────────────────────────────
+Outputs:
+  ApiUrl:
+    Description: API Gateway endpoint
+    Value: !Sub "https://${PakkaApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}"
+    Export:
+      Name: PakkaSolarApiUrl
+
+  MediaBucketName:
+    Value: !Ref MediaBucket
+    Export:
+      Name: PakkaSolarMediaBucket
+
+  AuditQueueUrl:
+    Value: !Ref AuditQueue
+    Export:
+      Name: PakkaSolarAuditQueue
