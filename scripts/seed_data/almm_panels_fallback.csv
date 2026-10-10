@@ -1,0 +1,36 @@
+brand_display,brand_normalized,model_prefix,cell_type,watt_range_min,watt_range_max,dcr_certified,list_name,list_version
+Waaree Energies,waaree_energies,ws,Mono-PERC,390,680,True,ALMM List-I (Modules),v2026
+Waaree Energies,waaree_energies,wm,Mono-PERC,300,420,True,ALMM List-I (Modules),v2026
+Waaree Energies,waaree_energies,wb,Bifacial,500,700,True,ALMM List-I (Modules),v2026
+Adani Solar,adani_solar,as,Mono-PERC,390,660,True,ALMM List-I (Modules),v2026
+Adani Solar,adani_solar,as-m,MonoPERC,390,600,True,ALMM List-I (Modules),v2026
+Vikram Solar,vikram_solar,vsm,Mono-PERC,350,580,True,ALMM List-I (Modules),v2026
+Vikram Solar,vikram_solar,vsmd,Mono-PERC,390,600,True,ALMM List-I (Modules),v2026
+Tata Power Solar,tata_power_solar,ts,Mono-PERC,300,540,True,ALMM List-I (Modules),v2026
+Tata Power Solar,tata_power_solar,tpm,Mono-PERC,390,560,True,ALMM List-I (Modules),v2026
+Goldi Solar,goldi_solar,gsi,Mono-PERC,390,600,True,ALMM List-I (Modules),v2026
+Goldi Solar,goldi_solar,gsm,Mono-PERC,350,560,True,ALMM List-I (Modules),v2026
+Renewsys India,renewsys_india,rs,Mono-PERC,290,530,True,ALMM List-I (Modules),v2026
+Renewsys India,renewsys_india,rm,Mono-PERC,390,560,True,ALMM List-I (Modules),v2026
+Emmvee Solar,emmvee_solar,es,Mono-PERC,310,530,True,ALMM List-I (Modules),v2026
+Saatvik Green Energy,saatvik_green_energy,sg,Mono-PERC,390,580,True,ALMM List-I (Modules),v2026
+Premier Energies,premier_energies,pe,Mono-PERC,390,600,True,ALMM List-I (Modules),v2026
+Premier Energies,premier_energies,pet,TOPCon,500,700,True,ALMM List-I (Modules),v2026
+Patanjali Renewable Energy,patanjali_renewable_energy,pre,Poly,200,380,True,ALMM List-I (Modules),v2026
+HHV Solar Technologies,hhv_solar,hhv,Mono-PERC,290,400,True,ALMM List-I (Modules),v2026
+Websol Energy Systems,websol_energy,ws,Mono-PERC,200,380,True,ALMM List-I (Modules),v2026
+INA Solar,ina_solar,is,Mono-PERC,290,400,True,ALMM List-I (Modules),v2026
+Mundra Solar PV,mundra_solar,ms,Mono-PERC,350,540,True,ALMM List-I (Modules),v2026
+Navitas Solar,navitas_solar,ns,Mono-PERC,290,500,True,ALMM List-I (Modules),v2026
+Jakson Solar,jakson_solar,js,Mono-PERC,350,530,True,ALMM List-I (Modules),v2026
+Loom Solar,loom_solar,ls,Mono-PERC,100,540,True,ALMM List-I (Modules),v2026
+Loom Solar,loom_solar,shark,Mono-PERC,400,600,True,ALMM List-I (Modules),v2026
+UTL Solar,utl_solar,utl,Poly,100,380,True,ALMM List-I (Modules),v2026
+RenewSolar,renewsolar,rs,Mono-PERC,290,500,True,ALMM List-I (Modules),v2026
+Bluebird Solar,bluebird_solar,bb,Mono-PERC,290,530,True,ALMM List-I (Modules),v2026
+Moserbear Solar,moserbear_solar,mb,Thin Film,50,200,True,ALMM List-I (Modules),v2026
+Alpex Solar,alpex_solar,al,Mono-PERC,350,540,True,ALMM List-I (Modules),v2026
+Freyr Energy,freyr_energy,fe,Mono-PERC,390,560,True,ALMM List-I (Modules),v2026
+Surana Solar,surana_solar,ss,Poly,200,380,True,ALMM List-I (Modules),v2026
+Ujaas Energy,ujaas_energy,ue,Mono-PERC,290,530,True,ALMM List-I (Modules),v2026
+Zodiac Energy,zodiac_energy,ze,Mono-PERC,290,530,True,ALMM List-I (Modules),v2026
