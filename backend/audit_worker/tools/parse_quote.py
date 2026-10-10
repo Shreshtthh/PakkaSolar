@@ -28,7 +28,7 @@ load_local_env()
 BUCKET         = os.environ.get("MEDIA_BUCKET", "local")
 BEDROCK_REGION = os.environ.get("BEDROCK_REGION", "us-east-1")
 MODEL_ID       = "us.amazon.nova-lite-v1:0"    # cross-region inference profile
-MOCK_MODE      = os.environ.get("MOCK_MODE", "false").lower() == "true"
+MOCK_MODE      = True
 
 s3 = boto3.client("s3")
 
