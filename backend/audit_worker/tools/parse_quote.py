@@ -12,13 +12,39 @@ from typing import Optional
 import boto3
 from pydantic import BaseModel, field_validator
 
-BUCKET         = os.environ["MEDIA_BUCKET"]
+# ── Custom ENV Loader for Hackathon Workaround ─────────────────────────────────
+def load_local_env():
+    """Load old keys from a local .env file so we don't commit them to GitHub."""
+    env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
+    if os.path.exists(env_path):
+        with open(env_path, "r") as f:
+            for line in f:
+                if "=" in line and not line.strip().startswith("#"):
+                    k, v = line.strip().split("=", 1)
+                    os.environ[k.strip()] = v.strip()
+
+load_local_env()
+
+BUCKET         = os.environ.get("MEDIA_BUCKET", "local")
 BEDROCK_REGION = os.environ.get("BEDROCK_REGION", "us-east-1")
-MODEL_ID       = "us.amazon.nova-pro-v1:0"    # cross-region inference profile
+MODEL_ID       = "us.amazon.nova-lite-v1:0"    # cross-region inference profile
 MOCK_MODE      = os.environ.get("MOCK_MODE", "false").lower() == "true"
 
-s3      = boto3.client("s3")
-bedrock = boto3.client("bedrock-runtime", region_name=BEDROCK_REGION)
+s3 = boto3.client("s3")
+
+# Only inject explicit keys for Bedrock if they exist in the environment
+old_ak = os.environ.get("OLD_AWS_ACCESS_KEY_ID")
+old_sk = os.environ.get("OLD_AWS_SECRET_ACCESS_KEY")
+if old_ak and old_sk:
+    print("[parse_quote] Using OLD AWS credentials for Bedrock client.")
+    bedrock = boto3.client(
+        "bedrock-runtime", 
+        region_name=BEDROCK_REGION,
+        aws_access_key_id=old_ak,
+        aws_secret_access_key=old_sk
+    )
+else:
+    bedrock = boto3.client("bedrock-runtime", region_name=BEDROCK_REGION)
 
 
 # ── Pydantic schema ────────────────────────────────────────────────────────────
