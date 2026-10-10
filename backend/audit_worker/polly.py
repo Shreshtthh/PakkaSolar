@@ -107,6 +107,10 @@ def generate_voice_note(verdict: dict, audit_id: str, lang: str = "hi") -> str:
         ContentType="audio/mpeg",
     )
 
-    url = f"{S3_BASE_URL}/{key}"
+    url = s3.generate_presigned_url(
+        "get_object",
+        Params={"Bucket": BUCKET, "Key": key},
+        ExpiresIn=604800, # 7 days
+    )
     print(f"[polly] Voice note saved: {url}")
     return url
