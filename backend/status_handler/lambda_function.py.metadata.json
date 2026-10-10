@@ -1,0 +1,5 @@
+{
+  "summary": "Status handler Lambda — returns audit record from DynamoDB for frontend polling. Returns full verdict when status=complete.",
+  "updatedAt": "2026-10-08T22:26:53.237769800Z",
+  "userFacing": true
+}

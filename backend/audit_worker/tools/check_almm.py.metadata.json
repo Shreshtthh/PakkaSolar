@@ -1,0 +1,5 @@
+{
+  "summary": "check_almm tool — looks up panel brand/model in DynamoDB almm_panels table. Uses multi-strategy brand matching: exact normalize → prefix/contains → difflib fuzzy. Brand list cached in Lambda global for warm invocations.",
+  "updatedAt": "2026-10-08T22:28:29.513087400Z",
+  "userFacing": true
+}

@@ -1,0 +1,4 @@
+{
+  "summary": "calc_generation tool — reads NASA POWER GHI data from S3 cache, calculates annual generation kWh, CO2 avoided, and payback years.",
+  "updatedAt": "2026-10-08T22:29:25.615315800Z"
+}

@@ -1,0 +1,5 @@
+{
+  "summary": "check_vendor, calc_subsidy, calc_generation, check_price, and build_verdict tools in a single file for the audit_worker.",
+  "updatedAt": "2026-10-08T22:28:49.237157900Z",
+  "userFacing": true
+}

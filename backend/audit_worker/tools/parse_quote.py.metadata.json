@@ -1,0 +1,5 @@
+{
+  "summary": "parse_quote tool — calls Amazon Bedrock Nova Pro multimodal to extract system_kw, brand, model, vendor_name, quoted_price from a solar quote image stored in S3. Returns validated Pydantic model.",
+  "updatedAt": "2026-10-08T22:27:53.380996400Z",
+  "userFacing": true
+}

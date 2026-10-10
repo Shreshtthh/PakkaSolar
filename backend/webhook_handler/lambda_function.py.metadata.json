@@ -1,0 +1,5 @@
+{
+  "summary": "webhook_handler Lambda — receives base64 image upload from frontend, saves to S3, creates pending audit record in DynamoDB, enqueues SQS message. Also handles WhatsApp webhook verification.",
+  "updatedAt": "2026-10-08T22:26:39.226108600Z",
+  "userFacing": true
+}

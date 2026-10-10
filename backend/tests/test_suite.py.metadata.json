@@ -1,0 +1,5 @@
+{
+  "summary": "Comprehensive pytest test suite for PakkaSolar backend. Tests are organized in three groups:\n1. Pure logic tests (no AWS): calc_subsidy, check_price, build_verdict — no mocking needed\n2. AWS tool tests (moto mocked): check_almm, check_vendor, calc_generation (including ANN key bug regression), parse_quote (MOCK_MODE + Pydantic validators)\n3. Lambda handler tests (moto mocked): webhook_handler upload flow, status_handler polling, audit_worker full pipeline in MOCK_MODE\n\nAlso includes an import smoke test that catches missing deps or wrong paths before deployment.",
+  "updatedAt": "2026-10-09T00:03:45.142523900Z",
+  "userFacing": true
+}

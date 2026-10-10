@@ -1,0 +1,4 @@
+{
+  "summary": "build_verdict tool — assembles RAG verdict from all check results. Generates bilingual (Hindi/English) summary strings and a pre-composed WhatsApp vendor message.",
+  "updatedAt": "2026-10-08T22:30:11.053416400Z"
+}

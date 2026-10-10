@@ -1,0 +1,4 @@
+{
+  "summary": "pytest conftest.py — sets all required environment variables before any module imports, and adds all Lambda source directories to sys.path so tests can import tools directly.",
+  "updatedAt": "2026-10-09T00:01:52.206875600Z"
+}

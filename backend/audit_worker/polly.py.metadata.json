@@ -1,0 +1,4 @@
+{
+  "summary": "Amazon Polly voice note generator — synthesizes Hindi (Kajal neural) or English speech for the verdict, saves MP3 to S3 verdicts/ prefix, returns public URL.",
+  "updatedAt": "2026-10-08T22:30:42.305224Z"
+}

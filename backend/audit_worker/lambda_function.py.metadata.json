@@ -1,0 +1,5 @@
+{
+  "summary": "audit_worker Lambda — SQS consumer that runs the full audit pipeline sequentially: parse quote image with Bedrock Nova, check ALMM DCR status, check vendor empanelment, calculate subsidy, estimate generation, check price, build verdict, generate Polly voice note, save result to DynamoDB.",
+  "updatedAt": "2026-10-08T22:27:25.130228400Z",
+  "userFacing": true
+}
