@@ -225,26 +225,15 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "pakkasolar-media-${AWS::AccountId}"
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
       CorsConfiguration:
         CorsRules:
           - AllowedHeaders: ["*"]
             AllowedMethods: [GET, PUT, POST]
             AllowedOrigins: ["*"]
             MaxAge: 3000
-
-  # Public read for verdicts/* so the audio player can stream the MP3 directly
-  MediaBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref MediaBucket
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Sid: PublicReadVerdicts
-            Effect: Allow
-            Principal: "*"
-            Action: s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${MediaBucket}/verdicts/*"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Outputs
