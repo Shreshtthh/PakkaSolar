@@ -1,0 +1,26 @@
+state_code,vendor_name_normalized,vendor_display,district,discom,empanelled,contact_phone,last_verified
+HP,sharma_solar_hamirpur,Sharma Solar,Hamirpur,HPSEBL,true,,2026-10-08
+HP,himachal_solar_solutions,Himachal Solar Solutions,Shimla,HPSEBL,true,,2026-10-08
+HP,hp_green_energy,HP Green Energy,Dharamsala,HPSEBL,true,,2026-10-08
+HP,himurja_approved_solar,HIMURJA Approved Solar Co.,Shimla,HPSEBL,true,,2026-10-08
+HP,alpine_solar_systems,Alpine Solar Systems,Mandi,HPSEBL,true,,2026-10-08
+HP,peak_power_solar,Peak Power Solar,Kullu,HPSEBL,true,,2026-10-08
+HP,green_hills_energy,Green Hills Energy,Kangra,HPSEBL,true,,2026-10-08
+HP,himalayan_solar,Himalayan Solar Pvt Ltd,Solan,HPSEBL,true,,2026-10-08
+HP,suntech_hp,Suntech HP,Una,HPSEBL,true,,2026-10-08
+HP,devbhoomi_solar,Devbhoomi Solar,Bilaspur,HPSEBL,true,,2026-10-08
+HP,shivalik_solar,Shivalik Solar,Hamirpur,HPSEBL,true,,2026-10-08
+HP,solan_solar_works,Solan Solar Works,Solan,HPSEBL,true,,2026-10-08
+HP,narayan_solar_traders,Narayan Solar Traders,Mandi,HPSEBL,true,,2026-10-08
+HP,srinivasa_solar_hp,Srinivasa Solar HP,Shimla,HPSEBL,true,,2026-10-08
+HP,techno_solar_hp,Techno Solar HP,Dharamsala,HPSEBL,true,,2026-10-08
+HP,bright_sun_solar,Bright Sun Solar,Una,HPSEBL,true,,2026-10-08
+HP,parvati_solar,Parvati Solar,Kullu,HPSEBL,true,,2026-10-08
+HP,kiran_solar_solutions,Kiran Solar Solutions,Kangra,HPSEBL,true,,2026-10-08
+HP,raj_solar_energy,Raj Solar Energy,Hamirpur,HPSEBL,true,,2026-10-08
+HP,sunrise_solar_hp,Sunrise Solar HP,Bilaspur,HPSEBL,true,,2026-10-08
+HP,cheapo_solar_traders,Cheapo Solar Traders,Hamirpur,HPSEBL,false,,2026-10-08
+HP,quick_install_solar,Quick Install Solar,Shimla,HPSEBL,false,,2026-10-08
+HP,budget_solar_hp,Budget Solar HP,Mandi,HPSEBL,false,,2026-10-08
+HP,unknown_vendor_solar,Unknown Vendor Solar,Unknown,HPSEBL,false,,2026-10-08
+HP,nit_demo_vendor,NIT Demo Vendor (Test),Hamirpur,HPSEBL,true,,2026-10-08
