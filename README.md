@@ -6,8 +6,8 @@
 [![Tests](https://img.shields.io/badge/Test_Suite-60+_Passed_(Moto_%2B_Pytest)-28A745?style=for-the-badge&logo=pytest)](https://docs.pytest.org)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-> **Live Demo:** [https://demo.pakkasolar.in](https://demo.pakkasolar.in) *(Placeholder)*  
-> **3-Minute Video Pitch:** [https://youtu.be/pakkasolar-demo-tour](https://youtu.be/pakkasolar-demo-tour) *(Placeholder)*  
+> **Live Demo:**   https://pakka-solar.vercel.app/
+> **3-Minute Video Pitch:** https://youtu.be/C9tdxlWbC18
 > **Submission Track:** Track 03: Waste and Energy — Rooftop Solar  
 
 ---
@@ -265,9 +265,9 @@ Visit `http://localhost:5173` to upload a sample quotation and view the interact
 - **Event:** Bharat Builds Tour Hackathon
 - **Track:** Track 03: Waste and Energy (Rooftop Solar)
 - **Problem Statement Alignment:** Directly accelerates clean energy adoption by eliminating the primary friction point in PM Surya Ghar rooftop solar deployment—installer opacity, non-DCR counterfeit hardware, and subsidy rejection risks.
-- **Repository:** [https://github.com/your-org/PakkaSolar](https://github.com/your-org/PakkaSolar)
-- **Demo Video:** [Watch 3-Minute Architectural Walkthrough](https://youtu.be/pakkasolar-demo-tour) *(Placeholder)*
-- **Team:** Solo Build / NIT Hamirpur
+- **Repository:** [https://github.com/your-org/PakkaSolar](https://github.com/Shreshtthh/PakkaSolar)
+- **Demo Video:** [Watch 3-Minute Architectural Walkthrough](https://youtu.be/C9tdxlWbC18)
+- **Team:** Solo Build
 
 ---
 
