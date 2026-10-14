@@ -265,7 +265,7 @@ Visit `http://localhost:5173` to upload a sample quotation and view the interact
 - **Event:** Bharat Builds Tour Hackathon
 - **Track:** Track 03: Waste and Energy (Rooftop Solar)
 - **Problem Statement Alignment:** Directly accelerates clean energy adoption by eliminating the primary friction point in PM Surya Ghar rooftop solar deployment—installer opacity, non-DCR counterfeit hardware, and subsidy rejection risks.
-- **Repository:** [https://github.com/your-org/PakkaSolar](https://github.com/Shreshtthh/PakkaSolar)
+- **Repository:** [https://github.com/Shreshtthh/PakkaSolar](https://github.com/Shreshtthh/PakkaSolar)
 - **Demo Video:** [Watch 3-Minute Architectural Walkthrough](https://youtu.be/C9tdxlWbC18)
 - **Team:** Solo Build
 
